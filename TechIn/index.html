@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+<link rel="stylesheet" href="http://www.w3schools.com/lib/w3.css">
+<body>
+    <script>
+        var app = angular.module("myTechInApp",[]);
+        app.controller("myTechInController", function($scope, $http){
+            $scope.loginID ="";
+            $scope.password ="";
+            $scope.hideForm = false;
+            $scope.registerFormInput = true;
+            
+            $scope.registerForm = function(){
+                $scope.hideForm = true;
+                $scope.registerFormInput = false;
+                $scope.fName ='';
+                $scope.lName = '';
+                $scope.city ='';
+                $scope.email ='';
+                $scope.password ='';
+                $scope.confpassword ='';
+            }
+            
+            $scope.registerDetails = function(){
+                        
+                
+                $http({
+                    url: '/api/addressbook/',
+                    method: 'post',
+                    data : {
+                        fName : $scope.fName,
+                        lName : $scope.lName,
+                        city :$scope.city,
+                        loginId: $scope.email,
+                        Password: $scope.password
+                    }
+                })
+                $scope.hideForm = false;
+                $scope.registerFormInput = true;
+                $scope.loginID ='';
+                $scope.password ='';
+            }
+        });
+    </script>
+<div align ="center">
+<div ng-app = "myTechInApp" ng-cloak ng-controller = "myTechInController" class="w3-card-12 w3-margin" style="max-width: 600px">
+    <header class="w3-container w3-center w3-lightgrey w3-hover-shadow" ng-hide = "hideForm">
+       <div class="w3-tag w3-round w3-teal" style="padding:3px">
+          <div class="w3-tag w3-round w3-teal w3-border w3-border-white">
+            Techin Inc.
+          </div>
+    </div>
+    </header>
+    <header class="w3-container w3-center w3-lightgrey w3-hover-shadow" ng-hide = "registerFormInput">
+        <h3>Registeration page</h3>
+    </header>
+    <form name = "myForm" class ="w3-container" ng-hide = "hideForm">
+        <label class = "w3-label w3-left">Login ID:</label>
+        <input type="text" class="w3-input" placeholder="Username" ng-model = "loginID"><br>
+        
+        <label class="w3-label w3-left">Password:</label>
+        <input type="password" class="w3-input" placeholder="Password" ng-model = "password"><br>
+        <button class = "w3-btn w3-teal w3-round">Sign In</button>
+        <button class = "w3-btn w3-round" ng-click = "registerForm()">Register</button>
+    </form>
+    
+    <form name = "myForm1" class="w3-container" ng-hide = "registerFormInput">
+        <label class = "w3-label w3-left">First Name:</label>
+        <input type="text" class="w3-input" placeholder="FirstName" ng-model = "fName"><br>
+        
+        <label class = "w3-label w3-left">Last Name:</label>
+        <input type="text" class="w3-input" placeholder="Last Name" ng-model = "lName"><br>
+        
+        <label class = "w3-label w3-left">City:</label>
+        <input type="text" class="w3-input" placeholder="City" ng-model = "city"><br>
+        
+        <label class = "w3-label w3-left">Email ID:</label>
+        <input type="email" class="w3-input" placeholder="Email ID" ng-model = "email"><br>
+        
+        <label class = "w3-label w3-left">Password:</label>
+        <input type="password" class="w3-input" placeholder="Password" ng-model = "password"><br>
+        
+        <label class = "w3-label w3-left">Confirm Password</label>
+        <input type = "password" class="w3-input" placeholder="Confirm Password" ng-model = "confpassword"><br>
+        
+        <button class = "w3-btn w3-teal w3-round" ng-click = "registerDetails()">Register</button>
+        <button class = "w3-btn w3-round" ng-click = "reset">Reset</button>
+    </form>
+</div>
+    </div>
+</body>
+</html>
