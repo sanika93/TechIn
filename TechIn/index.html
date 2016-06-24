@@ -26,7 +26,7 @@
                         
                 
                 $http({
-                    url: '/api/addressbook/',
+                    url: '/api/techin/',
                     method: 'post',
                     data : {
                         fName : $scope.fName,
@@ -72,8 +72,13 @@
         <label class = "w3-label w3-left">Last Name:</label>
         <input type="text" class="w3-input" placeholder="Last Name" ng-model = "lName"><br>
         
-        <label class = "w3-label w3-left">City:</label>
-        <input type="text" class="w3-input" placeholder="City" ng-model = "city"><br>
+        <label class = "w3-label w3-left">Gender:</label>
+        <p style="text-align:left;">
+        <input class="w3-radio" type="radio" name="gender" value="male" checked>
+        <label class="w3-validate">Male</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <input class="w3-radio" type="radio" name="gender" value="female">
+        <label class="w3-validate">Female</label></p>
+
         
         <label class = "w3-label w3-left">Email ID:</label>
         <input type="email" class="w3-input" placeholder="Email ID" ng-model = "email"><br>
