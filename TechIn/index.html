@@ -2,47 +2,9 @@
 <html>
 <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
 <link rel="stylesheet" href="http://www.w3schools.com/lib/w3.css">
+<script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+<script src="js/app.js"></script>
 <body>
-    <script>
-        var app = angular.module("myTechInApp",[]);
-        app.controller("myTechInController", function($scope, $http){
-            $scope.loginID ="";
-            $scope.password ="";
-            $scope.hideForm = false;
-            $scope.registerFormInput = true;
-            
-            $scope.registerForm = function(){
-                $scope.hideForm = true;
-                $scope.registerFormInput = false;
-                $scope.fName ='';
-                $scope.lName = '';
-                $scope.city ='';
-                $scope.email ='';
-                $scope.password ='';
-                $scope.confpassword ='';
-            }
-            
-            $scope.registerDetails = function(){
-                        
-                
-                $http({
-                    url: '/api/techin/',
-                    method: 'post',
-                    data : {
-                        fName : $scope.fName,
-                        lName : $scope.lName,
-                        city :$scope.city,
-                        loginId: $scope.email,
-                        Password: $scope.password
-                    }
-                })
-                $scope.hideForm = false;
-                $scope.registerFormInput = true;
-                $scope.loginID ='';
-                $scope.password ='';
-            }
-        });
-    </script>
 <div align ="center">
 <div ng-app = "myTechInApp" ng-cloak ng-controller = "myTechInController" class="w3-card-12 w3-margin" style="max-width: 600px">
     <header class="w3-container w3-center w3-lightgrey w3-hover-shadow" ng-hide = "hideForm">
@@ -74,9 +36,9 @@
         
         <label class = "w3-label w3-left">Gender:</label>
         <p style="text-align:left;">
-        <input class="w3-radio" type="radio" name="gender" value="male" checked>
+        <input class="w3-radio" type="radio" name="gender" value="male" checked ng-model="gender">
         <label class="w3-validate">Male</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        <input class="w3-radio" type="radio" name="gender" value="female">
+        <input class="w3-radio" type="radio" name="gender" value="female" ng-model="gender">
         <label class="w3-validate">Female</label></p>
 
         
