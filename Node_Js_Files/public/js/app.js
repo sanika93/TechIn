@@ -22,7 +22,7 @@
                     }
                 }   
                 
-                $http.post('http://localhost:3000/register', {
+                $http.post('http://localhost:9000/register', {
                         fName : $scope.fName,
                         lName : $scope.lName,
                         gender :$scope.gender,

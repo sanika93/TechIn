@@ -3,6 +3,10 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const MongoClient = require('mongodb').MongoClient
 const app = express();
+
+app.use(express.static('public'));
+app.engine('html', require('ejs').renderFile);
+app.set('view engine','html');
 app.use(bodyParser.urlencoded({extended: true}))
 app.use(bodyParser.json())
 
@@ -29,8 +33,8 @@ var db
 MongoClient.connect('mongodb://localhost/TechIn', (err,database) => {
 	if(err) return console.log(err)
 	db = database
-	app.listen(3000, () => {
-		console.log('listening on 3000')
+	app.listen(9000, () => {
+		console.log('listening on 9000')
 	})
 })
 
@@ -56,6 +60,10 @@ app.post('/register', (req, res) => {
         res.status(201).json(doc.ops[0]);
     }     
   })
-})
+});
+
+app.get('/',(req, res)=>{
+    res.render('index')
+});
 
 
