@@ -41,5 +41,26 @@
                 $scope.loginID ='';
                 $scope.password ='';
             }
+            
+            $scope.signIn = function(){
+                
+                var config = {
+                headers : {
+                    'Content-Type': 'application/json'
+                    }
+                }   
+                
+                $http.post('http://localhost:9000/login', {
+                    loginId: $scope.loginID,
+                    password: $scope.password }, config)
+                    .then(
+                            function(response){
+                                alert("Signed in");
+                            },
+                            function(response){
+                                alert("Incorrect user details.");
+                            }
+                        );
+              }
         });
  
