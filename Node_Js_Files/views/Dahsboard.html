@@ -89,12 +89,24 @@ $( document ).ready(function() {
    addPill('java.jpg','Java');
    addPill('python.jpg','Python');
 });
-function renderCard(header,content)
+function renderCard(header,content,id)
 {
-	html = '<div class="w3-card-12" style="padding:5px;">	<header class="w3-container w3-teal">';
+	html = '<div class="w3-card-12" style="padding:5px;">	<header class="w3-container w3-teal" onclick="myPost('+id+');">';
 	html = html + '<h4>' + header + '</h4></header>';
 	html = html + '<div class="w3-container"><p>'+content+'</p></div><footer class="w3-container w3-teal"><i class="fa fa-thumbs-up">&nbsp;&nbsp;</i><i class="fa fa-thumbs-down">&nbsp;&nbsp;</i></footer></div>';
 	$('#container').append(html);
+}
+
+function myPost(id){
+    html = '<div id ='+id+' class = "w3-modal">';
+    html += '<div class = "w3-modal-content">';
+    html+= '<div class="w3-container">';
+    html +='<span onclick = "document.getElementById('+id+').style.display="none" class = "w3-closebtn">&times;</span>';
+    html+= '<p>Some text. Some text.</p>';
+    html+= '<p>Some text. Some text.</p>';
+    html+='</div></div></div>';
+    $('#container').append(html);
+    document.getElementById(id).style.display="block";
 }
 function addPill(img,content)
 {
