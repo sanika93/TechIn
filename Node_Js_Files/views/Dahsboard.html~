@@ -16,6 +16,7 @@
     background-color: #f1f1f1;
     margin: 1px;
     border: 1px solid #cecece;
+    cursor: pointer;
 }
 
 .chip img {
@@ -44,10 +45,10 @@
 <nav class="w3-sidenav w3-white w3-card-2 w3-animate-left" style="display:none" id="leftMenu">
   <ul class="w3-ul">
 	<li>
-		<img src="Profile.png" class="w3-circle" style="width:100px;"><i style="float:right;"><a href="javascript:void(0)" onclick="closeLeftMenu()" class="w3-closenav w3-right w3-large"><i class="fa fa-close"></i></a></i>
+		<img src="Profile.png" class="w3-circle" style="width:100px;"><i style="float:right;"><a href="javascript:void(0)" onclick="closeLeftMenu()" class="w3-closenav w3-right w3-large" style="padding-right: 10px;"><i class="fa fa-close"></i></a></i>
 	</li>
 	<li class="w3-large"><i class="fa fa-home">&nbsp;&nbsp;</i>Home</li>
-	<li class="w3-large"><i class="fa fa-archive">&nbsp;&nbsp;</i>Post</li>
+	<li class="w3-l1px solid #cececearge"><i class="fa fa-archive">&nbsp;&nbsp;</i>Post</li>
 	<li class="w3-large"><i class="fa fa-thumb-tack">&nbsp;&nbsp;</i>Favourites</li>
 	<li class="w3-large"><i class="fa fa-sign-out">&nbsp;&nbsp;</i>Sign Out</li>
   </ul>
@@ -89,12 +90,28 @@ $( document ).ready(function() {
    addPill('java.jpg','Java');
    addPill('python.jpg','Python');
 });
-function renderCard(header,content)
+function renderCard(header,content,id)
 {
-	html = '<div class="w3-card-12" style="padding:5px;">	<header class="w3-container w3-teal">';
+	html = '<div class="w3-card-12" style="padding:5px;">	<header class="w3-container w3-teal" onclick="myPost('+id+');">';
 	html = html + '<h4>' + header + '</h4></header>';
 	html = html + '<div class="w3-container"><p>'+content+'</p></div><footer class="w3-container w3-teal"><i class="fa fa-thumbs-up">&nbsp;&nbsp;</i><i class="fa fa-thumbs-down">&nbsp;&nbsp;</i></footer></div>';
 	$('#container').append(html);
+}
+
+function myPost(id){
+    html = '<div id ='+id+' class = "w3-modal">';
+    html += '<div class = "w3-modal-content">';
+    html+= '<div class="w3-container">';
+    html +='<span onclick = "closeModal('+id+')" class = "w3-closebtn">&times;</span>';
+    html+= '<p>Some text. Some text.</p>';
+    html+= '<p>Some text. Some text.</p>';
+    html+='</div></div></div>';
+    $('#container').append(html);
+    document.getElementById(id).style.display="block";
+}
+function closeModal(id)
+{
+	document.getElementById(id).style.display="none";
 }
 function addPill(img,content)
 {
@@ -106,7 +123,9 @@ function deletePill(pill)
 	pill.parentElement.style.display="none";
 }
 </script>
-     
+
+    
+</div> 
 </body>
 </html>
 

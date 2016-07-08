@@ -102,12 +102,16 @@ function myPost(id){
     html = '<div id ='+id+' class = "w3-modal">';
     html += '<div class = "w3-modal-content">';
     html+= '<div class="w3-container">';
-    html +='<span onclick = "document.getElementById('+id+').style.display="none" class = "w3-closebtn">&times;</span>';
+    html +='<span onclick = "closeModal('+id+')" class = "w3-closebtn">&times;</span>';
     html+= '<p>Some text. Some text.</p>';
     html+= '<p>Some text. Some text.</p>';
     html+='</div></div></div>';
     $('#container').append(html);
     document.getElementById(id).style.display="block";
+}
+function closeModal(id)
+{
+	document.getElementById(id).style.display="none";
 }
 function addPill(img,content)
 {
