@@ -44,7 +44,7 @@
 <nav class="w3-sidenav w3-white w3-card-2 w3-animate-left" style="display:none" id="leftMenu">
   <ul class="w3-ul">
 	<li>
-		<img src="Profile.png" class="w3-circle" style="width:100px;"><i style="float:right;"><a href="javascript:void(0)" onclick="closeLeftMenu()" class="w3-closenav w3-right w3-large" style="padding-right: 10px;"><i class="fa fa-close"></i></a></i>
+		<img src="Profile.png" class="w3-circle" style="width:100px;"><i style="float:right;"><a href="javascript:void(0)" onclick="closeLeftMenu()" class="w3-closenav w3-right w3-large"><i class="fa fa-close"></i></a></i>
 	</li>
 	<li class="w3-large"><i class="fa fa-home">&nbsp;&nbsp;</i>Home</li>
 	<li class="w3-large"><i class="fa fa-archive">&nbsp;&nbsp;</i>Post</li>
