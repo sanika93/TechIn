@@ -1,6 +1,7 @@
 console.log("May the Node be with you");
 const express = require('express');
 const bodyParser = require('body-parser');
+const nodemailer = require('nodemailer');
 const MongoClient = require('mongodb').MongoClient
 const app = express();
 var mongo = require('mongodb');
@@ -39,12 +40,12 @@ MongoClient.connect('mongodb://localhost/TechIn', (err,database) => {
 })
 
 // API to insert user details into MongoDb
-app.post('/register', (req, res) => {
+/*app.post('/register', (req, res) => {
 
     var fName = req.body.fName;
     var lName = req.body.lName;
     var gender = req.body.gender;
-    var loginId = req.body.loginId;
+    loginId = req.body.loginId;
     var password = req.body.Password;
 
     db.collection('user').insertOne({
@@ -60,10 +61,83 @@ app.post('/register', (req, res) => {
         res.status(201).json(doc.ops[0]);
     }
   })
+});*/
+
+//Configuring the parameters for email verification
+var smtpTransport = nodemailer.createTransport("SMTP",{
+    service : "Gmail",
+    auth: {
+        user: "usctechin@gmail.com",
+        pass: "viveksakshisanika"
+}
 });
+
+var rand, mailOptions, hist, link;
+
 
 app.get('/',(req, res)=>{
     res.render('index')
+});
+var fname,lName,gender,loginId,password;
+app.post('/send',(req,res)=>{
+    fName = req.body.fName;
+    lName = req.body.lName;
+    gender = req.body.gender;
+    loginId = req.body.loginId;
+    password = req.body.Password;
+    rand = Math.floor((Math.random()*100)+54);
+    host = req.get('host');
+    link = "http://"+req.get('host')+"/verify?id="+rand;
+    mailOptions = {
+        to: loginId,
+        subject:"Please confirm your email account",
+        html : "Hello<br> Please click on the link to verify your email.<br><a href ="+link+">Click here to verify!</a>"
+    }
+    
+    smtpTransport.sendMail(mailOptions,(error, response)=>{
+        if(error){
+            console.log(error);
+            res.end("error");
+        }else{
+            console.log("Message sent :"+ response.message);
+            res.end("sent");
+        }
+    });
+});
+
+
+app.get('/verify',(req,res)=>{
+    console.log(req.protocol+":/"+req.get('host'));
+    if((req.protocol+"://"+req.get('host')) == ("http://"+host))
+        {
+            console.log("Domain is matched. Information is from Authentic email");
+            if(req.query.id == rand)
+                {
+                    console.log("email is verified");
+                    db.collection('user').insertOne({
+                        "fName" : fName,
+                        "lName" : lName,
+                        "gender" : gender,
+                        "loginId" : loginId,
+                        "password" : password
+                    } , function(err,doc){
+                    if(err){
+                        handleError(res, err.message, "Failed to insert user data.")
+                    }else{
+                        //res.status(201).json(doc.ops[0]);
+                        console.log("DB inserted");
+                    }
+                  })
+                    res.render('index');
+                }
+            else{
+                console.log("Email is not verified");
+            }
+        }
+    else{
+        res.end("<h1>Request is from an unknown source");
+    }
+    
 });
 
 /*Login API*/
