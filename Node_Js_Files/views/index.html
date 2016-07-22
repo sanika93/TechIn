@@ -20,20 +20,20 @@
     <form name = "myForm" class ="w3-container" ng-hide = "hideForm">
         <label class = "w3-label w3-left">Login ID:</label>
         <input type="text" class="w3-input" placeholder="Username" ng-model = "loginID"><br>
-        
+
         <label class="w3-label w3-left">Password:</label>
         <input type="password" class="w3-input" placeholder="Password" ng-model = "password"><br>
         <button class = "w3-btn w3-teal w3-round" ng-click="signIn()">Sign In</button>
         <button class = "w3-btn w3-round" ng-click = "registerForm()">Register</button>
     </form>
-    
+
     <form name = "myForm1" class="w3-container" ng-hide = "registerFormInput">
         <label class = "w3-label w3-left">First Name:</label>
         <input type="text" class="w3-input" placeholder="FirstName" ng-model = "fName"><br>
-        
+
         <label class = "w3-label w3-left">Last Name:</label>
         <input type="text" class="w3-input" placeholder="Last Name" ng-model = "lName"><br>
-        
+
         <label class = "w3-label w3-left">Gender:</label>
         <p style="text-align:left;">
         <input class="w3-radio" type="radio" name="gender" value="male" checked ng-model="gender">
@@ -41,16 +41,16 @@
         <input class="w3-radio" type="radio" name="gender" value="female" ng-model="gender">
         <label class="w3-validate">Female</label></p>
 
-        
+
         <label class = "w3-label w3-left">Email ID:</label>
         <input type="email" class="w3-input" placeholder="Email ID" ng-model = "email"><br>
-        
+
         <label class = "w3-label w3-left">Password:</label>
         <input type="password" class="w3-input" placeholder="Password" ng-model = "password"><br>
-        
+
         <label class = "w3-label w3-left">Confirm Password</label>
         <input type = "password" class="w3-input" placeholder="Confirm Password" ng-model = "confpassword"><br>
-        
+
         <button class = "w3-btn w3-teal w3-round" ng-click = "registerDetails()">Register</button>
         <button class = "w3-btn w3-round" ng-click = "reset">Reset</button>
     </form>

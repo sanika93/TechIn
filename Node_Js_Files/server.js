@@ -3,7 +3,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const MongoClient = require('mongodb').MongoClient
 const app = express();
-
+var mongo = require('mongodb');
 app.use(express.static('public'));
 app.engine('html', require('ejs').renderFile);
 app.set('view engine','html');
@@ -46,7 +46,7 @@ app.post('/register', (req, res) => {
     var gender = req.body.gender;
     var loginId = req.body.loginId;
     var password = req.body.Password;
-  
+
     db.collection('user').insertOne({
         "fName" : fName,
         "lName" : lName,
@@ -58,7 +58,7 @@ app.post('/register', (req, res) => {
         handleError(res, err.message, "Failed to insert user data.")
     }else{
         res.status(201).json(doc.ops[0]);
-    }     
+    }
   })
 });
 
@@ -66,12 +66,14 @@ app.get('/',(req, res)=>{
     res.render('index')
 });
 
+/*Login API*/
+
 app.post('/login', (req, res) => {
 
     var loginId = req.body.loginId;
     var password = req.body.password;
     var response_message = "";
-  
+
     db.collection('user').findOne({ loginId : loginId }, { password : 1 } , function(err,doc){
     if(err){
         handleError(res, err.message, "Failed to retrieve data.")
@@ -85,8 +87,23 @@ app.post('/login', (req, res) => {
             response_message = "Incorrect details";
         }
         res.status(200).send(response_message);
-    }     
+    }
   })
 });
 
+/*REST API to display all the posts based on the technology selected*/
 
+app.get('/posts/:id', function(req, res){
+    var q = req.params.id;
+    console.log(q);
+    var document_id;
+    db.collection('tech').findOne({ name : q}, { _id : 1}, function(err, doc){
+     document_id = doc._id;
+     console.log(document_id);
+     var o_id = document_id.toString();
+     db.collection('post').find({"techId" : o_id}).toArray(function(err, docs){
+        if(err) console.log("Error");
+        else console.log(JSON.stringify(docs));
+    });
+   });
+});
