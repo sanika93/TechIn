@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<title>W3.CSS</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="http://www.w3schools.com/lib/w3.css">
+
+<body class="w3-container">
+
+<h2>Admin Page</h2>
+<div class="w3-accordion w3-light-grey">
+  <button onclick="myFunction('Demo1')" class="w3-btn-block w3-left-align">Add Tech</button>
+  <div id="Demo1" class="w3-accordion-content w3-container">
+    <h4>Section 1</h4>
+    <p>Some text..</p>
+  </div>
+  <button onclick="myFunction('Demo2')" class="w3-btn-block w3-left-align">Delete User</button>
+  <div id="Demo2" class="w3-accordion-content w3-container">
+    <h4>Section 2</h4>
+    <p>Some other text..</p>
+  </div>
+  <button onclick="myFunction('Demo3')" class="w3-btn-block w3-left-align">Add Post</button>
+  <div id="Demo3" class="w3-accordion-content w3-container">
+    <h4>Section 2</h4>
+    <p>Some other text..</p>
+  </div>
+  <button onclick="myFunction('Demo4')" class="w3-btn-block w3-left-align">Delete Post</button>
+  <div id="Demo4" class="w3-accordion-content w3-container">
+    <h4>Section 2</h4>
+    <p>Some other text..</p>
+  </div>
+</div>
+
+<script>
+function myFunction(id) {
+	for ( i = 1 ; i < 5 ; i++)
+	{
+	    idName = "Demo" + i
+	    var x = document.getElementById(idName);
+	    if (idName === id)
+	    {
+		    if (x.className.indexOf("w3-show") == -1) {
+			x.className += " w3-show";
+		    } else {
+			x.className = x.className.replace(" w3-show", "");
+		    }
+	    }
+	    else
+		x.className = x.className.replace(" w3-show", "");
+	}
+}
+</script>
+
+</body>
+</html>
+
+
