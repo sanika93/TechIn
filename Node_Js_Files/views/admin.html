@@ -3,9 +3,16 @@
 <title>W3.CSS</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="http://www.w3schools.com/lib/w3.css">
-
-<body class="w3-container">
-
+<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+<script src="//cdn.tinymce.com/4/tinymce.min.js"></script>
+<script>tinymce.init({ selector : 'textarea', maxWidth: '500'});</script>
+<script src="js/post.js"></script>
+<style>
+textarea.tinymce{
+  width : 300px !important;
+}
+</style>
+<body class="w3-container" ng-app="postApp">
 <h2>Admin Page</h2>
 <div class="w3-accordion w3-light-grey">
   <button onclick="myFunction('Demo1')" class="w3-btn-block w3-left-align">Add Tech</button>
@@ -19,9 +26,21 @@
     <p>Some other text..</p>
   </div>
   <button onclick="myFunction('Demo3')" class="w3-btn-block w3-left-align">Add Post</button>
-  <div id="Demo3" class="w3-accordion-content w3-container">
-    <h4>Section 2</h4>
-    <p>Some other text..</p>
+  <div id="Demo3" class="w3-accordion-content w3-container" ng-controller="createPostController">
+    <h4>Add Post</h4>
+    <form class="w3-container" name="postform">
+    <label>Title</label> : <input type="text" class="w3-input w3-border w3-round" style="width: 50%;" ng-model="title"><br><br>
+    <label>Link</label> : <input type="text" class="w3-input w3-border w3-round" style="width: 50%;" ng-model="link"><br><br>
+    <label>Post date</label> : <input type="date" class="w3-input w3-border w3-round" style="width: 50%;" ng-model="post_date"><br><br>
+    <label>Type of technology </label> : <br>
+    <select class="w3-select w3-border w3-round" style="width: 50%;" ng-model="type"><br>
+      <option value="Web">Web Development</option>
+      <option value="Database">Databases</option>
+      <option value="Programming">General programming</option>
+    </select><br><br>
+    <label>Description</label> : <textarea class="tinymce" cols="20" name="desc" id="desc" ></textarea><br><br>
+    <button class="w3-btn w3-round w3-border" ng-click="addPostFunc()">Add post</button>
+    </form>
   </div>
   <button onclick="myFunction('Demo4')" class="w3-btn-block w3-left-align">Delete Post</button>
   <div id="Demo4" class="w3-accordion-content w3-container">
@@ -49,8 +68,5 @@ function myFunction(id) {
 	}
 }
 </script>
-
 </body>
 </html>
-
-

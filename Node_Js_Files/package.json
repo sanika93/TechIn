@@ -13,9 +13,10 @@
     "ejs": "^2.4.2",
     "express": "^4.14.0",
     "mongodb": "^2.1.18",
-    "nodemailer": "0.7.1"
+    "nodemailer": "^0.7.1"
   },
   "devDependencies": {
+    "angular-ui-tinymce": "0.0.16",
     "nodemon": "^1.9.2"
   }
 }
