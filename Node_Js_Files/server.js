@@ -34,10 +34,10 @@ app.use(function (req, res, next) {
 });
 var db
 
-MongoClient.connect('mongodb://localhost/TechIn', (err,database) => {
+MongoClient.connect('mongodb://localhost/TechIn', function (err,database) {
 	if(err) return console.log(err)
 	db = database
-	app.listen(9000, () => {
+	app.listen(9000, function ()  {
 		console.log('listening on 9000')
 	})
 })
@@ -54,24 +54,24 @@ var smtpTransport = nodemailer.createTransport("SMTP",{
 var rand, mailOptions, hist, link;
 
 
-app.get('/',(req, res)=>{
+app.get('/', function (req, res){
     res.render('index')
 });
 
-app.get('/getDashboard', (req, res) =>{
+app.get('/getDashboard', function (req, res) {
   res.render('Dahsboard');
  //res.sendFile(__dirname + '/views/Dahsboard.html');
 });
 
-app.get('/getAdmin', (req, res) =>{
+app.get('/getAdmin', function (req, res) {
   res.render('admin');
 });
 
-app.get('/', (req, res)=>{
+app.get('/', function (req, res){
   res.render('admin_add_post')
 });
 var fname,lName,gender,loginId,password;
-app.post('/send',(req,res)=>{
+app.post('/send', function (req,res) {
     fName = req.body.fName;
     lName = req.body.lName;
     gender = req.body.gender;
@@ -86,7 +86,7 @@ app.post('/send',(req,res)=>{
         html : "Hello<br> Please click on the link to verify your email.<br><a href ="+link+">Click here to verify!</a>"
     }
 
-    smtpTransport.sendMail(mailOptions,(error, response)=>{
+    smtpTransport.sendMail(mailOptions, function (error, response){
         if(error){
             console.log(error);
             res.end("error");
@@ -98,7 +98,7 @@ app.post('/send',(req,res)=>{
 });
 
 
-app.get('/verify',(req,res)=>{
+app.get('/verify', function (req,res) {
     console.log(req.protocol+":/"+req.get('host'));
     if((req.protocol+"://"+req.get('host')) == ("http://"+host))
         {
@@ -134,7 +134,7 @@ app.get('/verify',(req,res)=>{
 
 /*Login API*/
 
-app.post('/login', (req, res) => {
+app.post('/login', function (req, res)  {
 
     var loginId = req.body.loginId;
     var password = req.body.password;
@@ -203,3 +203,31 @@ app.post('/addPost', function(req, res){
     });
 });
 });
+
+app.post('/techlistGet', function(req, res){
+	var cursor =db.collection('tech').find({},{name:1}).toArray(function(err, docs){
+        if(err)
+	{ 
+		res.send({"msg":"Error"});
+	}
+        else 
+	{
+		res.send(JSON.stringify(docs));
+	}	
+    });
+});
+
+app.post('/techlistAdd', function(req, res){
+  
+  var name = req.body.name;
+  
+  db.collection('tech').insertOne(
+    {
+       "name" : name
+    }, function(err, result){
+          if(err) response_message="Failed to insert";
+          else response_message="Inserted successfully";
+          res.status(200).send(response_message);
+    });
+});
+

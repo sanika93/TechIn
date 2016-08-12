@@ -11,14 +11,22 @@
 textarea.tinymce{
   width : 300px !important;
 }
+#TechList ul {
+margin: 0;
+padding: 0;
+list-style-type: none;
+}
 </style>
 <body class="w3-container" ng-app="postApp">
 <h2>Admin Page</h2>
 <div class="w3-accordion w3-light-grey">
   <button onclick="myFunction('Demo1')" class="w3-btn-block w3-left-align">Add Tech</button>
-  <div id="Demo1" class="w3-accordion-content w3-container">
-    <h4>Section 1</h4>
-    <p>Some text..</p>
+  <div id="Demo1" class="w3-accordion-content w3-container" ng-controller="techPostController" data-ng-init="initTech();">
+    <div id="TechList" style="list-st">
+	<ul id="techlist_ul" class="nav nav-pills" >
+		<li ng-repeat="tech in technologies"><a href="#">{{tech}}</a>
+	</ul>
+    </div>
   </div>
   <button onclick="myFunction('Demo2')" class="w3-btn-block w3-left-align">Delete User</button>
   <div id="Demo2" class="w3-accordion-content w3-container">
