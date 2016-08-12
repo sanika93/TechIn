@@ -7,6 +7,22 @@ app.controller("createPostController", function($scope, $http){
       }
   }
 
+  $scope.initTech = function () {
+	$http.post('http://localhost:9000/techlistGet')
+	.then(
+              function(response){
+		var data = response.data;
+		var l = new Array();
+		for ( i = 0 ; i < data.length ; i++)
+			l.push(data[i].name);
+		$scope.technologies = l;
+              },
+              function(response){
+                //alert("Failed");
+              }
+          );
+  };
+
   $scope.addPostFunc = function(){
 
     alert("entered");
@@ -75,6 +91,9 @@ app.controller("techPostController", function($scope, $http){
 		{
 			document.querySelector('#addTechDiv').remove();
 			$scope.initTech();
+			scope = angular.element(document.getElementById('Demo3')).scope();
+			scope.initTech();
+			
 		}		
 		else		
 		{
