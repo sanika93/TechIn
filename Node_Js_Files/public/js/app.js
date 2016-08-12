@@ -52,7 +52,7 @@
                             password: $scope.password }, config)
                             .then(function(response){
                                if(response.data === 'signedIn'){
-                                 $window.location.href = 'http://localhost:9000/getDashboard';
+                                 $window.location.href = 'http://localhost:9000/home';
                                } else if (response.data == 'admin'){
                                  $window.location.href = 'http://localhost:9000/getAdmin';
                                } else {
@@ -67,3 +67,22 @@
                           }
 
       });
+
+      app.controller("cardsController", function($http, $scope){
+
+        var config = {
+        headers : {
+            'Content-Type': 'application/json'
+            }
+        }
+
+        $scope.getRecords = function(){
+
+        $http.get('http://localhost:9000/techlistGet', config)
+          .then(function(response){
+            $scope.records = response.data;
+          }, function(response){
+              alert("Failed");
+          });
+    }
+});

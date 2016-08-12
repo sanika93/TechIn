@@ -1,0 +1,15 @@
+.cardsContainer{
+  height: 100%;
+  width: 1200px;
+ overflow: hidden;
+}
+
+.cell{
+     width: 100px;
+     height: 100px;
+     float:left;
+     text-align: center;
+     font-family: "Arial Narrow";
+     font-weight: bold;
+     font-size: 20px;
+ }

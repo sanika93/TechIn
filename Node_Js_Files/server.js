@@ -70,6 +70,11 @@ app.get('/getAdmin', function (req, res) {
 app.get('/', function (req, res){
   res.render('admin_add_post')
 });
+
+app.get('/home', function(req, res){
+  res.render('home')
+});
+
 var fname,lName,gender,loginId,password;
 app.post('/send', function (req,res) {
     fName = req.body.fName;
@@ -184,8 +189,8 @@ app.post('/addPost', function(req, res){
   var type = req.body.type;
   var desc = req.body.desc;
 
-  db.collection('tech').findOne({ name : type}, { tech_ID : 1}, function(err, doc){
-   document_id = doc.tech_ID;
+  db.collection('tech').findOne({ name : type}, { _id : 1}, function(err, doc){
+   document_id = doc._id;
    console.log(document_id);
    var o_id = document_id.toString();
    var response_message = "";
@@ -207,20 +212,20 @@ app.post('/addPost', function(req, res){
 app.post('/techlistGet', function(req, res){
 	var cursor =db.collection('tech').find({},{name:1}).toArray(function(err, docs){
         if(err)
-	{ 
+	{
 		res.send({"msg":"Error"});
 	}
-        else 
+        else
 	{
 		res.send(JSON.stringify(docs));
-	}	
+	}
     });
 });
 
 app.post('/techlistAdd', function(req, res){
-  
+
   var name = req.body.name;
-  
+
   db.collection('tech').insertOne(
     {
        "name" : name
@@ -230,4 +235,3 @@ app.post('/techlistAdd', function(req, res){
           res.status(200).send(response_message);
     });
 });
-
